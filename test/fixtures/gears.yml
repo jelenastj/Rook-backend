@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  brand: MyString
+  notes: MyString
+  type: 
+  url: MyString
+  icon: MyString
+  quantity: 1
+  retired: false
+  user_id: 1
+
+two:
+  name: MyString
+  brand: MyString
+  notes: MyString
+  type: 
+  url: MyString
+  icon: MyString
+  quantity: 1
+  retired: false
+  user_id: 1

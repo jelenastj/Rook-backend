@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  gear_id: 1
+  location: MyString
+  start_date: 2020-07-14 12:27:02
+  end_date: 2020-07-14 12:27:02
+  notes: MyString
+
+two:
+  user_id: 1
+  gear_id: 1
+  location: MyString
+  start_date: 2020-07-14 12:27:02
+  end_date: 2020-07-14 12:27:02
+  notes: MyString
