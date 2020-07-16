@@ -7,7 +7,7 @@ def create
 
   if @user.valid?
     @token = encode_token(user_id: @user.id)
-    render json: { user: {username: @user.name, id: @user.id}, jwt: @token }, status: :created
+    render json: { user: {username: @user.username, id: @user.id}, jwt: @token }, status: :created
   else
     render json: { error: 'failed to create user' }, status: :not_acceptable
   end
@@ -19,7 +19,7 @@ def show
   token = request.headers['Authorization']
   user = User.find_by(id: token)
   if logged_in?
-    render json: { id: current_user.id, username: current_user.name}
+    render json: { id: current_user.id, username: current_user.username}
   else
     render json: {error: 'No user could be found'}, status: 401
   end
@@ -34,7 +34,7 @@ end
 private
 
 def user_params
-  params.permit(:username, :password, :email)
+  params.require(:user).permit(:username, :password, :email)
 end
 
 end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         resources :trips
         resources :gears
         resources :tripgears
+        
         post '/login', to: 'auth#create'
         get '/profile', to: 'users#profile'
       end
