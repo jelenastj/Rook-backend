@@ -17,11 +17,11 @@ class Api::V1::GearsController < ApplicationController
     end
 
     def create
-        gear = Gear.create(trip_params)
+        gear = Gear.create(gear_params)
         if (gear.valid?)
             render json: gear
         else
-            render json: { errors: trip.errors.full_messages }, status: :not_acceptable
+            render json: { errors: gear.errors.full_messages }, status: :not_acceptable
         end
     end
 
@@ -30,7 +30,7 @@ class Api::V1::GearsController < ApplicationController
         if (gear.valid?)
             render json: gear
         else
-            render json: { errors: trip.errors.full_messages, id: trip.id }, status: :not_acceptable
+            render json: { errors: gear.errors.full_messages, id: gear.id }, status: :not_acceptable
         end
     end
 
@@ -47,6 +47,6 @@ class Api::V1::GearsController < ApplicationController
     end
 
     def gear_params
-        params.require(:trip).permit(:name, :brand,:notes, :geartype, :url, :icon, :quantity, :retired, :user_id, :weight)
+        params.require(:gear).permit(:name, :brand,:notes, :geartype, :url, :icon, :quantity, :retired, :user_id, :weight)
     end
 end
