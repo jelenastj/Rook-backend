@@ -53,7 +53,7 @@ class Api::V1::TripsController < ApplicationController
 
     def trips_serializer
        {
-           :only => [:location, :notes, :start_date, :end_date],
+           :only => [:user_id, :location, :notes, :start_date, :end_date],
            :include => {:gears => { }}
     }
     end
