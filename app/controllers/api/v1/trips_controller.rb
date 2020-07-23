@@ -26,7 +26,6 @@ class Api::V1::TripsController < ApplicationController
     end
 
     def update
-      
         trip.update(trip_params)
         if (trip.valid?)
             render json: trip.to_json(trips_serializer)
