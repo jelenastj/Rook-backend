@@ -5,14 +5,14 @@ class Api::V1::TripgearsController < ApplicationController
 
     def index
         tripgears = Tripgear.all
-        render json: tripgears, except: [:created_at, :updated_at]
+        render json: tripgears.to_json(tripgears_serializer)
     end
 
 
     def create
         tripgear = Tripgear.create(tripgear_params)
         if (tripgear.valid?)
-            render json: tripgear.to_json(tripsgear_serializer)
+            render json: tripgear.to_json(tripgears_serializer)
         else
             render json: { errors: tripgear.errors.full_messages }, status: :not_acceptable
         end
@@ -20,7 +20,7 @@ class Api::V1::TripgearsController < ApplicationController
 
 
     def show
-        render json: @tripgear, except: [:created_at, :updated_at]
+        render json: @tripgear.to_json(tripgears_serializer)
     end
 
 
@@ -34,5 +34,10 @@ class Api::V1::TripgearsController < ApplicationController
         params.require(:tripgear).permit(:trip_id, :gear_id)
     end
 
-
+    def tripgears_serializer
+        {
+            :only => [:trip_id, :gear_id],
+            :include => {:gear => { }}
+     }
+     end
 end

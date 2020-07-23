@@ -36,7 +36,6 @@ class Api::V1::TripsController < ApplicationController
     end
 
     def destroy
-        
         trip.destroy
         render json: trip.to_json(trips_serializer)
     end
@@ -53,7 +52,7 @@ class Api::V1::TripsController < ApplicationController
 
     def trips_serializer
        {
-           :only => [:user_id, :location, :notes, :start_date, :end_date],
+           :only => [:id, :user_id, :location, :notes, :start_date, :end_date],
            :include => {:gears => { }}
     }
     end
