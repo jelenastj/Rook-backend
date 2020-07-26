@@ -5,11 +5,11 @@ class Api::V1::TripsController < ApplicationController
 
     def index
         trips = Trip.all
-        render json: trips, except: [:created_at, :updated_at]
+        render json: trips.to_json(trips_serializer)
     end
 
     def show
-        render json: @trip, except: [:created_at, :updated_at]
+        render json: @trip.to_json(trips_serializer)
     end
 
     def new
@@ -19,27 +19,30 @@ class Api::V1::TripsController < ApplicationController
     def create
         trip = Trip.create(trip_params)
         if (trip.valid?)
-            render json: trip
+            render json: trip.to_json(trips_serializer)
         else
             render json: { errors: trip.errors.full_messages }, status: :not_acceptable
         end
     end
 
     def update
-      
-        trip.update(trip_params)
-        if (trip.valid?)
-            render json: trip
+        @trip.update(trip_params)
+        if (@trip.valid?)
+            render json: @trip.to_json(trips_serializer)
         else
-            render json: { errors: trip.errors.full_messages, id: trip.id }, status: :not_acceptable
+            render json: { errors: @trip.errors.full_messages, id: @trip.id }, status: :not_acceptable
         end
     end
 
     def destroy
-        
-        trip.destroy
-        render json: trip
+        @trip.destroy
+        render json: @trip.to_json(trips_serializer)
     end
+
+    # def findNextTrip
+    #     date = Date.now
+    # end
+
 
     private
 
@@ -48,6 +51,13 @@ class Api::V1::TripsController < ApplicationController
     end
 
     def trip_params
-        params.require(:trip).permit(:location, :start_date, :end_date, :notes, :user_id, :gear_id)
+        params.require(:trip).permit(:location, :start_date, :end_date, :notes, :user_id)
+    end
+
+    def trips_serializer
+       {
+           :only => [:id, :user_id, :location, :notes, :start_date, :end_date],
+           :include => {:gears => { }}
+    }
     end
 end

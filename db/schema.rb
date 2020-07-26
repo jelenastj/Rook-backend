@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2020_07_14_173419) do
 
   create_table "trips", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "gear_id"
     t.string "location"
     t.datetime "start_date"
     t.datetime "end_date"
