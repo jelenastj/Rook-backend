@@ -26,18 +26,23 @@ class Api::V1::TripsController < ApplicationController
     end
 
     def update
-        trip.update(trip_params)
-        if (trip.valid?)
-            render json: trip.to_json(trips_serializer)
+        @trip.update(trip_params)
+        if (@trip.valid?)
+            render json: @trip.to_json(trips_serializer)
         else
-            render json: { errors: trip.errors.full_messages, id: trip.id }, status: :not_acceptable
+            render json: { errors: @trip.errors.full_messages, id: @trip.id }, status: :not_acceptable
         end
     end
 
     def destroy
-        trip.destroy
-        render json: trip.to_json(trips_serializer)
+        @trip.destroy
+        render json: @trip.to_json(trips_serializer)
     end
+
+    # def findNextTrip
+    #     date = Date.now
+    # end
+
 
     private
 
