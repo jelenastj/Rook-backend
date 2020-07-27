@@ -3,10 +3,8 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         resources :users, only: [:create, :show]
-        resources :trips do
-          resources :gears, controller: 'tripgears'
-        end
-
+        resources :trips 
+        resources :tripgears
         resources :gears
         
         post '/login', to: 'auth#create'
