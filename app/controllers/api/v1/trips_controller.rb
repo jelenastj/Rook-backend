@@ -1,6 +1,7 @@
 class Api::V1::TripsController < ApplicationController
+
     skip_before_action :authorized
-    before_action :find_trip, only: [:show, :update, :destroy]
+    before_action :find_trip, only: [:show, :update, :destroy, :update_gears]
 
 
     def index
@@ -26,17 +27,28 @@ class Api::V1::TripsController < ApplicationController
     end
 
     def update
-        trip.update(trip_params)
-        if (trip.valid?)
-            render json: trip.to_json(trips_serializer)
+       
+        @trip.update(trip_params)
+        if (@trip.valid?)
+            render json: @trip.to_json(trips_serializer)
         else
-            render json: { errors: trip.errors.full_messages, id: trip.id }, status: :not_acceptable
+            render json: { errors: @trip.errors.full_messages, id: trip.id }, status: :not_acceptable
         end
     end
 
+    def update_gears
+        tg = @trip.tripgears.find { |tg| tg.gear_id == params[:gear_id]}
+        if (tg.destroy)
+            render json: @trip.to_json(trips_serializer)
+        else
+            render json: { errors: @trip.errors.full_messages, id: trip.id }, status: :not_acceptable
+        end
+
+    end
+
     def destroy
-        trip.destroy
-        render json: trip.to_json(trips_serializer)
+        @trip.destroy
+        render json: @trip.to_json(trips_serializer)
     end
 
     private

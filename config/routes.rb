@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         
         post '/login', to: 'auth#create'
         get '/profile', to: 'users#profile'
+        patch '/trips/:id/updategears', to: 'trips#update_gears'
       end
     end
 end
