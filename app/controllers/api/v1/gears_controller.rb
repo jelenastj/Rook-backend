@@ -26,18 +26,17 @@ class Api::V1::GearsController < ApplicationController
     end
 
     def update
-        gear.update(gear_params)
-        if (gear.valid?)
-            render json: gear
+        @gear.update(gear_params)
+        if (@gear.valid?)
+            render json: @gear
         else
-            render json: { errors: gear.errors.full_messages, id: gear.id }, status: :not_acceptable
+            render json: { errors: @gear.errors.full_messages, id: gear.id }, status: :not_acceptable
         end
     end
 
     def destroy
-        
-        gear.destroy
-        render json: gear
+        @gear.destroy
+        render json: @gear
     end
 
     private
