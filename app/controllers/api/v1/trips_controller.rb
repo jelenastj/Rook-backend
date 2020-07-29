@@ -27,13 +27,15 @@ class Api::V1::TripsController < ApplicationController
     end
 
     def update
-       
         @trip.update(trip_params)
+        puts params
         if (@trip.valid?)
+            @trip.save
             render json: @trip.to_json(trips_serializer)
         else
             render json: { errors: @trip.errors.full_messages, id: trip.id }, status: :not_acceptable
         end
+
     end
 
     def update_gears
@@ -55,10 +57,11 @@ class Api::V1::TripsController < ApplicationController
 
     def find_trip
        @trip = Trip.find(params[:id])
+       
     end
 
     def trip_params
-        params.require(:trip).permit(:location, :start_date, :end_date, :notes, :user_id)
+        params.require(:trip).permit( :location, :start_date, :end_date, :notes, :user_id)
     end
 
     def trips_serializer
